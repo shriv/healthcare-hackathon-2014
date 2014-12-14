@@ -88,9 +88,11 @@
       ((get-drug-info drug-src) :> ?drug-code ?drug-type ?chemical)
       ((get-prescriber-tap prescriber-src) :> ?month ?year ?practice ?county ?district-code)
       (c/count :> ?item-count)))
-   
+
+;; Run the following in repl on test data
+;; (-main "path/to/prescription-data.csv" "path/to/drug-info.csv" "path/to/prescriber-dat.csv")
+;; To run query on AWS, create uberjar. Send uberjar to S3 bucket. Use a tool like Lemur or Amazonica to launch EMR jobs. 
 (defn -main
   [prescription-src drug-src prescriber-src]
   (?- (stdout)
       (joining-taps prescription-src drug-src prescriber-src)))
-      
